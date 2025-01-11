@@ -1,0 +1,20 @@
+.cache/
+coverage/
+release/app/*
+release/build/*
+!release/app/package.json
+!release/build
+!release/app/dist/main
+!release/app/dist/renderer
+
+node_modules/
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

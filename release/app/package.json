@@ -1,0 +1,20 @@
+{
+    "name": "tykhe-app",
+    "version": "2.0.0",
+    "description": "Desktop version",
+    "main": "./dist/main/main.js",
+    "author": {
+        "name": "Wilson Sam",
+        "email": "wilsonks@gmail.com"
+    },
+    "scripts": {
+        "electron-rebuild": "node -r ts-node/register ../../scripts/electron-rebuild.js",
+        "link-modules": "node -r ts-node/register ../../scripts/link-modules.ts",
+        "postinstall": "npm run electron-rebuild && npm run link-modules"
+    },
+    "dependencies": {
+        "nfc-pcsc": "^0.8.1",
+        "node-gyp": "^11.0.0"
+    },
+    "license": "MIT"
+}
