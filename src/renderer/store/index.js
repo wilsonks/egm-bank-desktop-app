@@ -7,10 +7,12 @@ import {
 import { createEpicMiddleware } from 'redux-observable';
 
 import logger from 'redux-logger';
+
 import cardSlice from './slices/card';
 import configSlice from './slices/config';
 import attendantSlice from './slices/attendant';
 import userSlice from './slices/user';
+import playersSlice from './slices/players';
 
 import rootEpic from './epics';
 
@@ -22,6 +24,7 @@ export const store = configureStore({
     config: configSlice.reducer,
     attendant: attendantSlice.reducer,
     user: userSlice.reducer,
+    players: playersSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(logger, epicMiddleware),
@@ -36,4 +39,5 @@ export const actions = {
   config: configSlice.actions,
   attendant: attendantSlice.actions,
   user: userSlice.actions,
+  players: playersSlice.actions,
 };

@@ -18,7 +18,6 @@ mountApp();
 
 const handleStoreState = (StoreState) => {
   store.dispatch(actions.config.configSet(StoreState.config));
-  store.dispatch(actions.attendant.AttendantUpdate(StoreState.attendant));
 };
 
 if (window.ipcRenderer) {

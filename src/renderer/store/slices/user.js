@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = {
-  uid: '',
+  uid: '03824ee4',
   account: '9645318040',
   name: 'Wilson',
   role: 'attendant',

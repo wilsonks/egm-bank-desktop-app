@@ -9,7 +9,10 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-import LoginPage from '../login';
+import AttendantLogin from '../AttendantLogin';
+import ManagerLogin from '../ManagerLogin';
+import AdminLogin from '../AdminLogin';
+import DeveloperLogin from '../DeveloperLogin';
 
 function LoginScreen() {
   const colors = useColorModeValue(
@@ -37,16 +40,16 @@ function LoginScreen() {
         </TabList>
         <TabPanels p="2rem">
           <TabPanel>
-            <LoginPage />
+            <AttendantLogin />
           </TabPanel>
           <TabPanel>
-            <LoginPage heading="Manager Login" />
+            <ManagerLogin />
           </TabPanel>
           <TabPanel>
-            <LoginPage heading="Admin Login" />
+            <AdminLogin />
           </TabPanel>
           <TabPanel>
-            <LoginPage heading="Developer Login" />
+            <DeveloperLogin />
           </TabPanel>
         </TabPanels>
       </VStack>

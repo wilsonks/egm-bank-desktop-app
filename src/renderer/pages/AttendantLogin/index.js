@@ -19,6 +19,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardSet } from '../../store/slices/card';
+import attendantSlice from '../../store/slices/attendant';
 
 const validationSchema = yup.object().shape({
   account: yup
@@ -31,10 +32,11 @@ const validationSchema = yup.object().shape({
     .required('Pin Number is required'),
 });
 
-function LoginPage({ heading = 'Attendant Login' }) {
+function AttendantLogin({ heading = 'Attendant Login' }) {
   const dispatch = useDispatch();
-  const { account, pin } = useSelector((state) => state.card);
+  const { account, pin } = useSelector((state) => state.attendant);
 
+  console.log(`Account Number...............${account}`);
   const {
     handleSubmit,
     control,
@@ -57,7 +59,7 @@ function LoginPage({ heading = 'Attendant Login' }) {
   const onSubmit = (data) => {
     console.log('Submitted Data:', data);
     // Dispatch action to update Redux store if needed
-    dispatch(cardSet(data));
+    dispatch(attendantSlice.actions.AttendantLoginRequest(data));
   };
 
   return (
@@ -101,6 +103,9 @@ function LoginPage({ heading = 'Attendant Login' }) {
           <FormErrorMessage>{errors.pin?.message}</FormErrorMessage>
         </FormControl>
         <HStack>
+          <Button colorScheme="gray" width="50%">
+            Clear
+          </Button>
           <Button colorScheme="yellow" type="submit" width="50%">
             Login
           </Button>
@@ -110,4 +115,4 @@ function LoginPage({ heading = 'Attendant Login' }) {
   );
 }
 
-export default LoginPage;
+export default AttendantLogin;

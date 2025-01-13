@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomHeading from '../../components/CustomHeading';
+import AttendantFirst from './TabPanels/First';
 
 function AttendantScreen() {
   const dispatch = useDispatch();
@@ -34,16 +35,20 @@ function AttendantScreen() {
       justifyContent="flex-start"
     >
       <TabList size="lg" alignItems="flex-start">
-        <Tab size="sm">NFC Cards</Tab>
-        <Tab size="sm">Topups</Tab>
-        <Tab size="sm">Slots</Tab>
-        <Tab size="sm">Logs</Tab>
+        <Tab size="sm">Active Cards</Tab>
+        <Tab size="sm">Blacklisted Cards</Tab>
+        <Tab size="sm">Transaction History</Tab>
+        <Tab size="sm">Shift Settlement</Tab>
+        <Tab size="sm">Developer Logs</Tab>
       </TabList>
       <TabPanels p="2rem" height="100%">
-        <TabPanel>1</TabPanel>
+        <TabPanel>
+          <AttendantFirst />
+        </TabPanel>
         <TabPanel>2</TabPanel>
         <TabPanel>3</TabPanel>
         <TabPanel>4</TabPanel>
+        <TabPanel>5</TabPanel>
       </TabPanels>
     </Tabs>
   );

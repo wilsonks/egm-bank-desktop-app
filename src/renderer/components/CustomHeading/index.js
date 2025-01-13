@@ -42,7 +42,7 @@ export function CustomHeading() {
             <Button
               size="md"
               colorScheme="yellow"
-              mt={'1'}
+              mt={'10px'}
               ml={'4rem'}
               onClick={handleLogoutBtnClick}
             >
