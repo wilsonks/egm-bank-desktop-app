@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = {
-  uid: '03824ee4',
-  account: '',
-  name: '',
+  uid: '',
+  account: '9645318040',
+  name: 'Wilson',
   role: 'attendant',
-  loggedIn: false,
+  loggedIn: true,
 };
 
 const userSlice = createSlice({
@@ -21,10 +21,11 @@ const userSlice = createSlice({
       state.loggedIn = true;
     },
     UserLoggedOut(state, { payload }) {
+      console.log(`UserLoggedOut: ${JSON.stringify(payload)}`);
       state.uid = '';
       state.account = '';
       state.name = '';
-      state.role = role;
+      state.role = 'attendant';
       state.loggedIn = false;
     },
   },

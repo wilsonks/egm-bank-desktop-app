@@ -39,14 +39,15 @@ const createPrimaryWindow = async (x, y, width, height) => {
   primaryWindow = new BrowserWindow({
     width: width,
     height: height,
-    // x: x,
-    // y: y,
-    center: true,
+    x: x,
+    y: y,
+    // center: true,
     // kiosk: true,
     resizable: false,
     fullscreen: false,
     fullscreenable: false,
     frame: true,
+    titleBarStyle: 'hidden', // default, hidden, hiddenInsert
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
@@ -90,9 +91,9 @@ app.on('ready', () => {
     return display.bounds.x != 0 || display.bounds.y != 0;
   });
   if (externalDisplay) {
-    createPrimaryWindow(0, 0, 1152, 648);
+    createPrimaryWindow(40, 40, 1920 * 0.8, 1080 * 0.8);
   } else {
-    createPrimaryWindow(0, 0, 1152, 648);
+    createPrimaryWindow(40, 40, 1920 * 0.8, 1080 * 0.8);
   }
 
   // Unregister all shortcuts.

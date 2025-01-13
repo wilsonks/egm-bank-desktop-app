@@ -10,15 +10,15 @@ const attendantSlice = createSlice({
   name: 'attendant',
   initialState: INITIAL_STATE,
   reducers: {
-    AttanderSet(state, { payload }) {
+    AttendantSet(state, { payload }) {
       return { ...payload };
     },
-    AttanderUpdate(state, { payload }) {
+    AttendantUpdate(state, { payload }) {
       return { ...state, ...payload };
     },
   },
 });
 
-export const { AttanderSet, AttanderUpdate } = attendantSlice.actions;
+export const { AttendantSet, AttendantUpdate } = attendantSlice.actions;
 
 export default attendantSlice;

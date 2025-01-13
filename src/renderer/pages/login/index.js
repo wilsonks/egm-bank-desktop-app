@@ -13,6 +13,7 @@ import {
   PinInput,
   FormErrorMessage,
   Stack,
+  HStack,
 } from '@chakra-ui/react';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -99,10 +100,11 @@ function LoginPage({ heading = 'Attendant Login' }) {
           />
           <FormErrorMessage>{errors.pin?.message}</FormErrorMessage>
         </FormControl>
-
-        <Button colorScheme="teal" type="submit" width="50%">
-          Login
-        </Button>
+        <HStack>
+          <Button colorScheme="yellow" type="submit" width="50%">
+            Login
+          </Button>
+        </HStack>
       </form>
     </Box>
   );
