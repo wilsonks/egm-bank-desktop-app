@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
+  Box,
+  Container,
+  Flex,
+  Grid,
+  GridItem,
+  Spacer,
   Tab,
   TabList,
   TabPanel,
@@ -41,7 +47,7 @@ function AttendantScreen() {
         <Tab size="sm">Shift Settlement</Tab>
         <Tab size="sm">Developer Logs</Tab>
       </TabList>
-      <TabPanels p="2rem" height="100%">
+      <TabPanels height="100%">
         <TabPanel>
           <AttendantFirst />
         </TabPanel>

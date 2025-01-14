@@ -25,7 +25,14 @@ function AttendantLoginRequestEpic(action$, state$) {
       if (hasEntry(account, attendants)) {
         const entry = attendants[findEntryIndex(account, attendants)];
         if (entry.pin == pin) {
-          return of(attendantSlice.actions.AttendantLoginSuccess(entry));
+          const { uri = {} } = state$.value.config;
+
+          return of(
+            attendantSlice.actions.AttendantLoginSuccess({
+              entry: entry,
+              playersUri: uri.playersUri,
+            })
+          );
         } else {
           return of(
             attendantSlice.actions.AttendantLoginFailure('Password Mismatch')
@@ -45,14 +52,16 @@ function AttendantLoginSuccessEpic(action$, state$) {
   return action$.pipe(
     ofType(attendantSlice.actions.AttendantLoginSuccess),
     pluck('payload'),
-    switchMap(() =>
-      ajax.getJSON('http://192.168.1.127:9001/GetTestUsersReq').pipe(
+    switchMap((payload) => {
+      const { scheme, host, port, path } = payload.playersUri;
+      console.log(`${scheme}`);
+      return ajax.getJSON(`${scheme}://${host}:${port}${path}`).pipe(
         map((response) => playerSlice.actions.PlayersSet(response)),
         catchError((error) =>
           of(attendantSlice.actions.AttendantLoginFailure(error))
         )
-      )
-    )
+      );
+    })
   );
 }
 export default combineEpics(

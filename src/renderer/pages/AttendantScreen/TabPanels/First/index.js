@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+const R = require('ramda');
+
 import {
   Badge,
   Box,
@@ -8,74 +10,65 @@ import {
   CardFooter,
   CardHeader,
   Container,
+  Grid,
+  GridItem,
   Heading,
   Image,
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
+import attendantSlice from '../../../../store/slices/attendant';
+import PlayerCard from './PlayerCard';
+import CardForm from './CardForm';
 
 function AttendantFirst() {
   const dispatch = useDispatch();
   const { role } = useSelector((state) => state.user);
   const { players } = useSelector((state) => state);
+  const { uri = {} } = useSelector((state) => state.config);
+
+  useEffect(() => {
+    if (R.isNotNil(uri) && R.isNotNil(uri.playersUri)) {
+      dispatch(
+        attendantSlice.actions.AttendantLoginSuccess({
+          playersUri: uri.playersUri,
+        })
+      );
+    }
+  }, [uri]);
 
   switch (role) {
     case 'attendant':
       return (
-        <SimpleGrid
-          spacing={4}
-          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-          overflowY="scroll"
-          maxH="600px"
-        >
-          {players.map((player) => (
-            <Card key={player.uid}>
-              <CardHeader>
-                <Heading size="md">{player.nickname}</Heading>
-              </CardHeader>
-              <CardBody>
-                <Box p="6">
-                  <Box display="flex" alignItems="baseline">
-                    <Badge borderRadius="full" px="2" colorScheme="teal">
-                      New
-                    </Badge>
-                    <Box
-                      color="gray.500"
-                      fontWeight="semibold"
-                      letterSpacing="wide"
-                      fontSize="xs"
-                      textTransform="uppercase"
-                      ml="2"
-                    >
-                      {600} spins &bull; {53} wins
-                    </Box>
-                  </Box>
-
-                  <Box
-                    mt="1"
-                    fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    noOfLines={1}
-                  >
-                    {player.isPlaying}
-                  </Box>
-
-                  <Box>
-                    {player.wallet}
-                    <Box as="span" color="gray.600" fontSize="sm"></Box>
-                  </Box>
-                </Box>
-              </CardBody>
-              <CardFooter>
-                <Button size="md" colorScheme="yellow">
-                  +TopUp
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </SimpleGrid>
+        <Grid templateColumns="repeat(10, 1fr)" gap={'2'}>
+          <GridItem
+            colSpan={7}
+            h={'500px'}
+            border={'1px'}
+            borderColor={'gray.100'}
+          >
+            <SimpleGrid
+              spacing={4}
+              templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+              overflowY="scroll"
+              maxH="500px"
+            >
+              {players.map((player) => (
+                <PlayerCard key={player.uid} player={player} />
+              ))}
+            </SimpleGrid>
+          </GridItem>
+          <GridItem
+            colStart={8}
+            colEnd={11}
+            h={'700px'}
+            bg="whiteAlpha.900"
+            p={'10px'}
+          >
+            <CardForm />
+          </GridItem>
+        </Grid>
       );
     default:
       return null;

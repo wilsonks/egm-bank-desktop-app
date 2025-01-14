@@ -12,22 +12,14 @@ import { actions } from '../../store';
 
 export function HeadingName() {
   const dispatch = useDispatch();
-  const { role, uid } = useSelector((state) => state.user);
+  const { role } = useSelector((state) => state.user);
 
   switch (role) {
     case 'attendant':
       return (
-        uid && (
-          <Heading
-            as={'h2'}
-            size="lg"
-            mt={'1'}
-            noOfLines={1}
-            color={'yellow.50'}
-          >
-            Card Top Up
-          </Heading>
-        )
+        <Heading as={'h2'} size="lg" mt={'1'} noOfLines={1} color={'yellow.50'}>
+          Card Top Up
+        </Heading>
       );
     default:
       return (

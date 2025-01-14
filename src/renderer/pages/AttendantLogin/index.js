@@ -36,7 +36,6 @@ function AttendantLogin({ heading = 'Attendant Login' }) {
   const dispatch = useDispatch();
   const { account, pin } = useSelector((state) => state.attendant);
 
-  console.log(`Account Number...............${account}`);
   const {
     handleSubmit,
     control,

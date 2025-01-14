@@ -1,9 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = {
-  server: {
-    ipAddress: '192.168.1.127',
+  uri: {
+    playersUri: {
+      scheme: 'http',
+      host: 'localhost',
+      port: '9001',
+      path: '/GetTestUsersReq',
+      query: '',
+      fragment: '',
+    },
   },
+
   slots: [
     { EgmId: '1', ipAddress: '192.168.1.152' },
     { EgmId: '2', ipAddress: '192.168.1.234' },

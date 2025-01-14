@@ -32,17 +32,17 @@ export function CustomHeading() {
         background={'brand.100'}
         // divider={<StackDivider borderColor="brand.100" />}
       >
-        <Box background={'brand.900'} minW={'8%'}></Box>
-        <Box background={'brand.900'} minW={'45%'}>
+        <Box background={'brand.900'} minW={'6%'}></Box>
+        <Box background={'brand.900'} minW={'47%'}>
           <HeadingName />
         </Box>
         <Box background={'brand.900'} minW={'32%'}></Box>
         <Box background={'brand.900'} minW={'15%'}>
           {uid == '' ? null : (
             <Button
-              size="md"
-              colorScheme="yellow"
-              mt={'10px'}
+              size="sm"
+              colorScheme="red"
+              mt={'15px'}
               ml={'4rem'}
               onClick={handleLogoutBtnClick}
             >

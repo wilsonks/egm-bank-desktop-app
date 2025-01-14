@@ -60,7 +60,7 @@ const createPrimaryWindow = async (x, y, width, height) => {
     `file://${path.resolve(__dirname, '../renderer/', 'index.html')}`
   );
 
-  primaryWindow.webContents.openDevTools(true);
+  // primaryWindow.webContents.openDevTools(true);
 
   const menuBuilder = new MenuBuilder(primaryWindow);
   menuBuilder.buildMenu();
