@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 const R = require('ramda');
 
 import {
@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import attendantSlice from '../../../../../store/slices/attendant';
+import { actions } from '../../../../../store';
 
 function PlayerCard({ player }) {
   const {
@@ -39,15 +40,13 @@ function PlayerCard({ player }) {
   const { role } = useSelector((state) => state.user);
   const { uri = {} } = useSelector((state) => state.config);
 
-  useEffect(() => {
-    if (R.isNotNil(uri) && R.isNotNil(uri.playersUri)) {
-      dispatch(
-        attendantSlice.actions.AttendantLoginSuccess({
-          playersUri: uri.playersUri,
-        })
-      );
-    }
-  }, [uri]);
+  //In this case, handleSelectBtnClick is memoized using useCallback,
+  //ensuring that its reference remains stable across renders unless
+  //the dispatch function changes (which it typically does not).
+  const handleSelectBtnClick = useCallback(
+    () => dispatch(actions.card.cardSet({ ...player })),
+    [dispatch, uid]
+  );
 
   switch (role) {
     case 'attendant':
@@ -76,8 +75,12 @@ function PlayerCard({ player }) {
             </Box>
           </CardBody>
           <CardFooter>
-            <Button size="sm" colorScheme="blackAlpha">
-              Touch
+            <Button
+              size="sm"
+              colorScheme="blackAlpha"
+              onClick={handleSelectBtnClick}
+            >
+              Select
             </Button>
           </CardFooter>
         </Card>

@@ -4,8 +4,8 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
-} from "electron";
-import { handleDrawRandomCard, handleShuffleDeck52 } from "./ipc";
+} from 'electron';
+import { handleDrawRandomCard, handleShuffleDeck52 } from './ipc';
 
 export default class MenuBuilder {
   mainWindow;
@@ -14,8 +14,7 @@ export default class MenuBuilder {
     this.mainWindow = mainWindow;
   }
 
-  buildMenu(){
-
+  buildMenu() {
     const template = this.buildDefaultTemplate();
 
     const menu = Menu.buildFromTemplate(template);
@@ -27,11 +26,11 @@ export default class MenuBuilder {
   buildDefaultTemplate() {
     const templateDefault = [
       {
-        label: "&File",
+        label: '&File',
         submenu: [
           {
-            label: "&Close",
-            accelerator: "Ctrl+W",
+            label: '&Close',
+            accelerator: 'Ctrl+W',
             click: () => {
               this.mainWindow.close();
             },
@@ -39,73 +38,73 @@ export default class MenuBuilder {
         ],
       },
       {
-        label: "&View",
-        submenu:[
-                {
-                  label: "&Reload",
-                  accelerator: "Ctrl+R",
-                  click: () => {
-                    this.mainWindow.webContents.reload();
-                  },
-                },
-                // {
-                //   label: "Toggle &Full Screen",
-                //   accelerator: "F11",
-                //   click: () => {
-                //     this.mainWindow.setFullScreen(
-                //       !this.mainWindow.isFullScreen()
-                //     );
-                //   },
-                // },
-                {
-                  label: "Toggle &Developer Tools",
-                  accelerator: "Alt+Ctrl+I",
-                  click: () => {
-                    this.mainWindow.webContents.toggleDevTools();
-                  },
-                },
-              ]
-      },
-      {
-        label: "Commands",
+        label: '&View',
         submenu: [
           {
-            label: "Draw Random Card",
-            accelerator: "Enter",
+            label: '&Reload',
+            accelerator: 'Ctrl+R',
             click: () => {
-              console.log("Send card:random to renderer")
-             handleDrawRandomCard()
-            }
+              this.mainWindow.webContents.reload();
+            },
           },
-          {
-            label: "Random Card",
-            accelerator: "Space",
-            visible: false,   
-            acceleratorWorksWhenHidden: true,
-            click: () => {
-              console.log("Send card:random to renderer")
-              handleDrawRandomCard()
-            }
-          },
-          {
-            label: "Shuffle",
-            accelerator: "Escape",
-            click: () => {
-              console.log("Send card:shuffle to renderer")
-              handleShuffleDeck52()
-            }
-          },
-          {
-            label: "CA",
-            accelerator: "c+a",
-            visible: false,   
-            acceleratorWorksWhenHidden: true,
-            click: () => {
-              console.log("Send card:ca to renderer")
-            }
-          },
+          // {
+          //   label: "Toggle &Full Screen",
+          //   accelerator: "F11",
+          //   click: () => {
+          //     this.mainWindow.setFullScreen(
+          //       !this.mainWindow.isFullScreen()
+          //     );
+          //   },
+          // },
+          // {
+          //   label: 'Toggle &Developer Tools',
+          //   accelerator: 'Alt+Ctrl+I',
+          //   click: () => {
+          //     this.mainWindow.webContents.toggleDevTools();
+          //   },
+          // },
         ],
-      }
+      },
+      // {
+      //   label: "Commands",
+      //   submenu: [
+      //     {
+      //       label: "Draw Random Card",
+      //       accelerator: "Enter",
+      //       click: () => {
+      //         console.log("Send card:random to renderer")
+      //        handleDrawRandomCard()
+      //       }
+      //     },
+      //     {
+      //       label: "Random Card",
+      //       accelerator: "Space",
+      //       visible: false,
+      //       acceleratorWorksWhenHidden: true,
+      //       click: () => {
+      //         console.log("Send card:random to renderer")
+      //         handleDrawRandomCard()
+      //       }
+      //     },
+      //     {
+      //       label: "Shuffle",
+      //       accelerator: "Escape",
+      //       click: () => {
+      //         console.log("Send card:shuffle to renderer")
+      //         handleShuffleDeck52()
+      //       }
+      //     },
+      //     {
+      //       label: "CA",
+      //       accelerator: "c+a",
+      //       visible: false,
+      //       acceleratorWorksWhenHidden: true,
+      //       click: () => {
+      //         console.log("Send card:ca to renderer")
+      //       }
+      //     },
+      //   ],
+      // }
       // {
       //   label: "Help",
       //   submenu: [

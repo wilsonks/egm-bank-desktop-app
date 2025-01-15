@@ -10,6 +10,18 @@ const INITIAL_STATE = {
       query: '',
       fragment: '',
     },
+    ChangeNickName: {
+      scheme: 'http',
+      host: 'localhost',
+      port: '9001',
+      path: '/api/v1/ChangeNickName',
+    },
+    ChangePinNumber: {
+      scheme: 'http',
+      host: 'localhost',
+      port: '9001',
+      path: '/api/v1/ChangePinNumber',
+    },
   },
 
   slots: [

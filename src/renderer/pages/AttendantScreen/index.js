@@ -45,7 +45,7 @@ function AttendantScreen() {
         <Tab size="sm">Blacklisted Cards</Tab>
         <Tab size="sm">Transaction History</Tab>
         <Tab size="sm">Shift Settlement</Tab>
-        <Tab size="sm">Developer Logs</Tab>
+        <Tab size="sm">Server Settings</Tab>
       </TabList>
       <TabPanels height="100%">
         <TabPanel>

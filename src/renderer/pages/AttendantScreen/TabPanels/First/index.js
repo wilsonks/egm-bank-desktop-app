@@ -16,11 +16,14 @@ import {
   Image,
   SimpleGrid,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import attendantSlice from '../../../../store/slices/attendant';
 import PlayerCard from './PlayerCard';
 import CardForm from './CardForm';
+import CardNickNameForm from '../../Forms/CardNickNameForm';
+import CardPinNumberForm from '../../Forms/CardPinNumberForm';
 
 function AttendantFirst() {
   const dispatch = useDispatch();
@@ -48,16 +51,19 @@ function AttendantFirst() {
             border={'1px'}
             borderColor={'gray.100'}
           >
-            <SimpleGrid
-              spacing={4}
-              templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-              overflowY="scroll"
-              maxH="500px"
-            >
-              {players.map((player) => (
-                <PlayerCard key={player.uid} player={player} />
-              ))}
-            </SimpleGrid>
+            <VStack style={{ alignItems: 'stretch' }}>
+              <Box minH={'100px'} maxH={'100px'} bg={'red.100'}></Box>
+              <SimpleGrid
+                spacing={4}
+                templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+                overflowY="scroll"
+                maxH="720px"
+              >
+                {players.map((player) => (
+                  <PlayerCard key={player.uid} player={player} />
+                ))}
+              </SimpleGrid>
+            </VStack>
           </GridItem>
           <GridItem
             colStart={8}
@@ -67,6 +73,8 @@ function AttendantFirst() {
             p={'10px'}
           >
             <CardForm />
+            <CardNickNameForm />
+            <CardPinNumberForm />
           </GridItem>
         </Grid>
       );

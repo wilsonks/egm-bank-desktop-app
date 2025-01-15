@@ -5,7 +5,8 @@ import { pluck, mergeMap, switchMap, map, catchError } from 'rxjs/operators';
 const R = require('ramda');
 
 import attendantSlice from '../../slices/attendant';
-import playerSlice from '../../slices/players';
+import playerSlice, { PlayersRefresh } from '../../slices/players';
+import { actions } from '../../../store';
 
 // Function to check if an object with a specific account exists
 const hasEntry = (account, attendants) =>
@@ -64,7 +65,25 @@ function AttendantLoginSuccessEpic(action$, state$) {
     })
   );
 }
+function PlayersRefreshEpic(action$, state$) {
+  return action$.pipe(
+    ofType(PlayersRefresh),
+    pluck('payload'),
+    switchMap((payload) => {
+      const { scheme, host, port, path } = payload.playersUri;
+      console.log(`${scheme}`);
+      return ajax.getJSON(`${scheme}://${host}:${port}${path}`).pipe(
+        map((response) => playerSlice.actions.PlayersSet(response)),
+        catchError((error) =>
+          of(attendantSlice.actions.AttendantLoginFailure(error))
+        )
+      );
+    })
+  );
+}
+
 export default combineEpics(
   AttendantLoginRequestEpic,
-  AttendantLoginSuccessEpic
+  AttendantLoginSuccessEpic,
+  PlayersRefreshEpic
 );

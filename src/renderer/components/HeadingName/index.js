@@ -18,7 +18,7 @@ export function HeadingName() {
     case 'attendant':
       return (
         <Heading as={'h2'} size="lg" mt={'1'} noOfLines={1} color={'yellow.50'}>
-          Card Top Up
+          Smart Card Buy-In
         </Heading>
       );
     default:
