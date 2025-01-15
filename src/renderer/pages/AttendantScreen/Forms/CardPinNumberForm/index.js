@@ -90,7 +90,7 @@ function CardPinNumberForm(props) {
         uid: uid,
         pin: data.pin,
         transBy: 'attendant',
-        transType: 'Change',
+        transType: 'Profile',
         transField: 'pin',
         oldValue: '',
         newValue: '',

@@ -63,6 +63,145 @@ function CardForm(props) {
     () => dispatch(actions.card.cardPinNumberChangeFormOn()),
     [dispatch, uid]
   );
+  const handleCloseBtnClick = useCallback(
+    () => dispatch(actions.card.cardReset()),
+    [dispatch]
+  );
+
+  const handlePlayerSessionCloseBtnClick = () => {
+    const { scheme, host, port, path } = uri.PlayerSessionClose;
+
+    // Sending POST request
+    fetch(`${scheme}://${host}:${port}${path}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        uid: uid,
+        isPlaying: false,
+        transBy: 'attendant',
+        transType: 'Wallet',
+        transField: 'isPlaying',
+        newValue: 'true',
+        newValue: 'false',
+      }),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`json data: ${data}`);
+        dispatch(
+          actions.players.PlayersRefresh({
+            playersUri: uri.playersUri,
+          })
+        );
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
+  const handleBuyInBalanceBtnClick = () => {
+    const { scheme, host, port, path } = uri.BuyInBalance;
+
+    if (amount > 0) {
+      // Sending POST request
+      fetch(`${scheme}://${host}:${port}${path}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          uid: uid,
+          wallet: wallet + amount,
+          transBy: 'attendant',
+          transType: 'Wallet',
+          transField: 'wallet',
+          depositAmount: 0,
+          withdrawAmount: amount,
+          prevCredit: wallet,
+          newCredit: wallet + amount,
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(`json data: ${data}`);
+          dispatch(
+            actions.players.PlayersRefresh({
+              playersUri: uri.playersUri,
+            })
+          );
+          setAmount(0);
+        })
+        .catch((error) => console.error('Error:', error));
+    }
+  };
+  const handleBuyOutBalanceBtnClick = () => {
+    const { scheme, host, port, path } = uri.BuyOutBalance;
+
+    if (amount > 0 && wallet >= amount) {
+      // Sending POST request
+      fetch(`${scheme}://${host}:${port}${path}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          uid: uid,
+          wallet: wallet - amount,
+          transBy: 'attendant',
+          transType: 'Wallet',
+          transField: 'wallet',
+          depositAmount: amount,
+          withdrawAmount: 0,
+          prevCredit: wallet,
+          newCredit: wallet - amount,
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(`json data: ${data}`);
+          dispatch(
+            actions.players.PlayersRefresh({
+              playersUri: uri.playersUri,
+            })
+          );
+          setAmount(0);
+        })
+        .catch((error) => console.error('Error:', error));
+    }
+  };
+  const handleTotalBuyOutBalanceBtnClick = () => {
+    const { scheme, host, port, path } = uri.BuyOutBalance;
+
+    // Sending POST request
+    fetch(`${scheme}://${host}:${port}${path}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        uid: uid,
+        wallet: 0,
+        transBy: 'attendant',
+        transType: 'Wallet',
+        transField: 'wallet',
+        depositAmount: 0,
+        withdrawAmount: wallet,
+        prevCredit: wallet,
+        newCredit: 0,
+      }),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`json data: ${data}`);
+        dispatch(
+          actions.players.PlayersRefresh({
+            playersUri: uri.playersUri,
+          })
+        );
+        setAmount(0);
+      })
+      .catch((error) => console.error('Error:', error));
+  };
 
   return (
     <VStack alignItems={'stretch'}>
@@ -178,11 +317,19 @@ function CardForm(props) {
           </SimpleGrid>
         </CardBody>
         <CardFooter>
-          <Button size="md" colorScheme="blackAlpha">
+          <Button
+            onClick={handleBuyOutBalanceBtnClick}
+            size="md"
+            colorScheme="red"
+          >
             Buy-Out
           </Button>
           <Spacer />
-          <Button size="md" colorScheme="blackAlpha">
+          <Button
+            onClick={handleBuyInBalanceBtnClick}
+            size="md"
+            colorScheme="red"
+          >
             Buy-In
           </Button>
         </CardFooter>
@@ -209,7 +356,7 @@ function CardForm(props) {
                 <Button
                   onClick={handleChangeNickNameBtnClick}
                   size="sm"
-                  colorScheme="blackAlpha"
+                  colorScheme="red"
                 >
                   Change
                 </Button>
@@ -218,7 +365,7 @@ function CardForm(props) {
                 <Button
                   onClick={handleChangePinNumberBtnClick}
                   size="sm"
-                  colorScheme="blackAlpha"
+                  colorScheme="red"
                 >
                   Change
                 </Button>
@@ -237,7 +384,11 @@ function CardForm(props) {
               <StatHelpText>-</StatHelpText>
               <StatNumber>
                 {isPlaying ? (
-                  <Button size="sm" colorScheme="blackAlpha">
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={handlePlayerSessionCloseBtnClick}
+                  >
                     Close
                   </Button>
                 ) : null}
@@ -246,6 +397,10 @@ function CardForm(props) {
           </StatGroup>
         </CardBody>
       </Card>
+      <Spacer />
+      <Button onClick={handleCloseBtnClick} colorScheme="gray">
+        CLOSE
+      </Button>
     </VStack>
   );
 }

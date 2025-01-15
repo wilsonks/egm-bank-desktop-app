@@ -27,6 +27,7 @@ import CardPinNumberForm from '../../Forms/CardPinNumberForm';
 
 function AttendantFirst() {
   const dispatch = useDispatch();
+  const { uid } = useSelector((state) => state.card);
   const { role } = useSelector((state) => state.user);
   const { players } = useSelector((state) => state);
   const { uri = {} } = useSelector((state) => state.config);
@@ -72,7 +73,7 @@ function AttendantFirst() {
             bg="whiteAlpha.900"
             p={'10px'}
           >
-            <CardForm />
+            {uid == '' ? null : <CardForm />}
             <CardNickNameForm />
             <CardPinNumberForm />
           </GridItem>

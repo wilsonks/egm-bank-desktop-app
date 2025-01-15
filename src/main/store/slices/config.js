@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   uri: {
     playersUri: {
       scheme: 'http',
-      host: 'localhost',
+      host: '192.168.1.127',
       port: '9001',
       path: '/GetTestUsersReq',
       query: '',
@@ -12,15 +12,33 @@ const INITIAL_STATE = {
     },
     ChangeNickName: {
       scheme: 'http',
-      host: 'localhost',
+      host: '192.168.1.127',
       port: '9001',
       path: '/api/v1/ChangeNickName',
     },
     ChangePinNumber: {
       scheme: 'http',
-      host: 'localhost',
+      host: '192.168.1.127',
       port: '9001',
       path: '/api/v1/ChangePinNumber',
+    },
+    PlayerSessionClose: {
+      scheme: 'http',
+      host: '192.168.1.127',
+      port: '9001',
+      path: '/api/v1/PlayerSessionClose',
+    },
+    BuyInBalance: {
+      scheme: 'http',
+      host: '192.168.1.127',
+      port: '9001',
+      path: '/api/v1/BuyInBalance',
+    },
+    BuyOutBalance: {
+      scheme: 'http',
+      host: '192.168.1.127',
+      port: '9001',
+      path: '/api/v1/BuyOutBalance',
     },
   },
 

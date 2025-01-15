@@ -75,11 +75,7 @@ function PlayerCard({ player }) {
             </Box>
           </CardBody>
           <CardFooter>
-            <Button
-              size="sm"
-              colorScheme="blackAlpha"
-              onClick={handleSelectBtnClick}
-            >
+            <Button size="sm" colorScheme="red" onClick={handleSelectBtnClick}>
               Select
             </Button>
           </CardFooter>
